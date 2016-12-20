@@ -13,6 +13,7 @@ from django.conf import settings
 
 
 urlpatterns = [
+        url(r'^widg/', include('apps.api_gw.widgets.routers')),   
 ]
 
 
