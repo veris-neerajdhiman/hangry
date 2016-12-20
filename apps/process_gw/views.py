@@ -12,11 +12,32 @@ from rest_framework.views import APIView
 # from apps.api_gw.widgets import serializers
 
 
-class RuntimeViewSet(APIView):
+import requests
+
+class RuntimeViewSet(viewsets.GenericViewSet):
     """
     """
-    def get(self, request, vrt_id, format=None):
+    def vrt_resolve(self, request, vrt_id, format=None):
         """
         """
-        return Response({'vrt_id':vrt_id})
+        url = '{0}/{1}/'.format('terminal', vrt_id)
+        api = '{0}{1}/{2}'.format('http://', request.get_host(), url)
+        response = requests.get(api, data=request.data, params=request.query_params, verify=True)
+        return Response(response.json())
+
+    def widget_resolve(self, request, vrt_id, widget_id, format=None):
+        """
+        """
+        url = '{0}/{1}/'.format('terminal', vrt_id)
+        api = '{0}{1}/{2}'.format('http://', request.get_host(), url)
+        response = requests.get(api, data=request.data, params=request.query_params, verify=True)
+        return Response(response.json())
+
+    def process_resolve(self, request, vrt_id, widget_id, process_id, format=None):
+        """
+        """
+        url = '{0}/{1}/'.format('terminal', vrt_id)
+        api = '{0}{1}/{2}'.format('http://', request.get_host(), url)
+        response = requests.get(api, data=request.data, params=request.query_params, verify=True)
+        return Response(response.json())
 
