@@ -18,6 +18,7 @@ urlpatterns = [
         
         url(r'', include('apps.api_gw.terminals.routers')),   
         url(r'', include('apps.api_gw.widgets.routers')),   
+        url(r'', include('apps.process_gw.routers')),   
 
 ]
 
