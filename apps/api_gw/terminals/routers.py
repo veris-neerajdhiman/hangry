@@ -17,7 +17,7 @@ from rest_framework import routers
 router = routers.SimpleRouter()
 
 
-router.register(r'vrt', views.TerminalViewSet)
+router.register(r'terminal', views.TerminalViewSet)
 
 urlpatterns = [
 
