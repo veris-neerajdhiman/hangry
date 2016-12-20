@@ -25,7 +25,7 @@ SECRET_KEY = 'h2sv$%0*xs5)c@#@kb4d0fqi0$wec$hp&t-4@)mr%($n3rok=6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.process_gw',
     'apps.client',
-    'apps.api_gw',
+
+    'apps.api_gw.widgets',
+    'apps.api_gw.terminals',
+
 ]
 
 MIDDLEWARE = [
