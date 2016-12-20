@@ -12,8 +12,8 @@ from apps.api_gw.widgets.models import Widgets
 class Terminals(models.Model):
     """
     """
-    name = models.CharField(_('widget name'), max_length=100)
-    widgets = models.ManyToManyField(Widgets)
+    name = models.CharField(_('terminal name'), max_length=100)
+    widgets = models.ManyToManyField(Widgets, verbose_name='terminal associated widgets')
 
     def __str__(self):
         return self.name

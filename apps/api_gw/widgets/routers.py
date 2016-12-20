@@ -12,10 +12,16 @@ from django.conf.urls import url, include
 from django.conf import settings
 from apps.api_gw.widgets import views
 
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+
+
+router.register(r'vrt/(?P<terminal_id>[0-9]+)/widget', views.WidgetViewSet)
+
 urlpatterns = [
-        url(r'^hello/', views.HelloView.as_view(), name='hello-word'),   
-        url(r'^hello-x/', views.Hello_X_View.as_view(), name='hello-X-word'),   
 
 ]
 
 
+urlpatterns += router.urls

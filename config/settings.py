@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.process_gw',
     'apps.client',
 
+    'apps.api_gw.libs.hunger',
     'apps.api_gw.widgets',
     'apps.api_gw.terminals',
 

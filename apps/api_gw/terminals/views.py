@@ -1,26 +1,17 @@
 
 from django.conf import settings
-from django.views import View
-from django.http import HttpResponse
-
 
 from rest_framework import viewsets, status
 from rest_framework.exceptions import NotAcceptable, ValidationError
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 
-
-class HelloView(View):
-    """
-    """
-    def get(self, request):
-        # <view logic>
-        return HttpResponse('Hellooooo')
+from apps.api_gw.terminals.models import Terminals
+from apps.api_gw.terminals import serializers
 
 
-class Hello_X_View(View):
+class TerminalViewSet(viewsets.ReadOnlyModelViewSet):
     """
     """
-    def get(self, request):
-        # <view logic>
-        return HttpResponse('Hellooooo--X')
+    queryset = Terminals.objects.all()
+    serializer_class = serializers.TerminalSerializer

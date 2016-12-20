@@ -13,8 +13,12 @@ from django.conf import settings
 
 
 urlpatterns = [
-        url(r'^widg/', include('apps.api_gw.widgets.routers')),   
-        url(r'^vrt/', include('apps.api_gw.terminals.routers')),   
+        
+        url(r'^service/', include('apps.api_gw.libs.urls')),   
+        
+        url(r'', include('apps.api_gw.terminals.routers')),   
+        url(r'', include('apps.api_gw.widgets.routers')),   
+
 ]
 
 

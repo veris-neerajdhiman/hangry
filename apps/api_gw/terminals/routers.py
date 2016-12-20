@@ -10,12 +10,18 @@ from __future__ import unicode_literals
 # Django
 from django.conf.urls import url, include
 from django.conf import settings
-from apps.api_gw.widgets import views
+from apps.api_gw.terminals import views
+
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+
+
+router.register(r'vrt', views.TerminalViewSet)
 
 urlpatterns = [
-        url(r'^hello/', views.HelloView.as_view(), name='hello-word'),   
-        url(r'^hello-x/', views.Hello_X_View.as_view(), name='hello-X-word'),   
 
 ]
 
 
+urlpatterns += router.urls
