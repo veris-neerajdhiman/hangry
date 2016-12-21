@@ -37,7 +37,7 @@ urlpatterns = [
         url(r'^vrt/(?P<vrt_id>[0-9]+)/widget/(?P<widget_id>[0-9]+)/$', 
             widget_resolve, 
             name='widget-resolve'),   
-        url(r'^vrt/(?P<vrt_id>[0-9]+)/widget/(?P<widget_id>[0-9]+)/process/(?P<process_id>[0-9]+)/$', 
+        url(r'^vrt/(?P<vrt_id>[0-9]+)/widget/(?P<widget_id>[0-9]+)/process/(?P<process_id>\w+)/$', 
                 process_resolve, 
                 name='process-resolve'),   
 ]

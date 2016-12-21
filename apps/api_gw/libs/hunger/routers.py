@@ -14,7 +14,7 @@ from apps.api_gw.libs.hunger import views
 
 urlpatterns = [
         url(r'^hello/$', views.HelloView.as_view(), name='hello-word'),   
-        url(r'^hello-x/$', views.Hello_X_View.as_view(), name='hello-X-word'),   
+        url(r'^hellox/$', views.Hello_X_View.as_view(), name='hello-X-word'),   
 
 ]
 

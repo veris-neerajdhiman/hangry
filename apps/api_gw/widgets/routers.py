@@ -17,7 +17,7 @@ from rest_framework import routers
 router = routers.SimpleRouter()
 
 
-router.register(r'terminal/(?P<terminal_id>[0-9]+)/widget$', views.WidgetViewSet)
+router.register(r'terminal/(?P<terminal_id>[0-9]+)/widget', views.WidgetViewSet)
 
 urlpatterns = [
 
