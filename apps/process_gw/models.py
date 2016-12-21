@@ -38,7 +38,8 @@ class RequestSession(models.Model):
 class RequestTrace(models.Model):
     """
     """
-    request = models.ForeignKey(RequestSession)
+    request = models.ForeignKey(RequestSession, related_name='request_session', verbose_name='individual request session id')
+    parent_request = models.ForeignKey(RequestSession, related_name='vrt_session', verbose_name='entire runtime session')
     state = models.CharField(_('state of a request'), max_length=20, choices=REQUEST_STATES)
     payload = JSONField(_('widgets config, for internal use'), blank=True, null=True)
     response = JSONField(_('widgets config, for internal use'), blank=True, null=True)
@@ -48,13 +49,12 @@ class RequestTrace(models.Model):
             requestId=str(self.request.requestId)
             )
 
-
 class RequestSessionAdmin(admin.ModelAdmin):
     list_display = ('requestId', 'request_type', 'state', )
     list_display_links = ('requestId', )
 
 class RequestTraceAdmin(admin.ModelAdmin):
-    list_display = ('request', 'request_type', 'state', )
+    list_display = ('request', 'parent_request', 'request_type', 'state', )
     list_display_links = ('request', )
 
     def request_type(self, obj):

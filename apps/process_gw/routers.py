@@ -14,16 +14,14 @@ from apps.process_gw import views
 
 
 vrt_resolve = views.RuntimeViewSet.as_view({
-    'get': 'vrt_resolve',
+    'post': 'vrt_resolve',
 })
 
 widget_resolve = views.RuntimeViewSet.as_view({
-    'get': 'widget_resolve',
     'post': 'widget_resolve',
 })
 
 process_resolve = views.RuntimeViewSet.as_view({
-    'get': 'process_resolve',
     'post': 'process_resolve',
 })
 
