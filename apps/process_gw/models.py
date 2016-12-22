@@ -29,7 +29,9 @@ class RequestSession(models.Model):
     requestId = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     request_type = models.CharField(_('Request type'), max_length=20, choices=REQUEST_TYPES)
     state = models.CharField(_('current state of a request'), max_length=20, choices=REQUEST_STATES)
-
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True, db_index=True)
+    modified_at = models.DateTimeField(_('modified at'), auto_now=True, db_index=True)
+    
     def __str__(self):
         return '{requestId}'.format(
             requestId=str(self.requestId)
@@ -41,8 +43,9 @@ class RequestTrace(models.Model):
     request = models.ForeignKey(RequestSession, related_name='request_session', verbose_name='individual request session id')
     parent_request = models.ForeignKey(RequestSession, related_name='vrt_session', verbose_name='entire runtime session')
     state = models.CharField(_('state of a request'), max_length=20, choices=REQUEST_STATES)
-    payload = JSONField(_('widgets config, for internal use'), blank=True, null=True)
-    response = JSONField(_('widgets config, for internal use'), blank=True, null=True)
+    payload = JSONField(_('Request payload'), blank=True, null=True)
+    response = JSONField(_('Request Response'), blank=True, null=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True, db_index=True)
 
     def __str__(self):
         return '{requestId}'.format(
