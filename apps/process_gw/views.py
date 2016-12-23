@@ -8,7 +8,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
 
 
-from apps.process_gw.models import RequestSession, RequestTrace
+from apps.process_gw.models import RequestSession, RequestTrace, Runtime
 
 import requests, uuid
 
@@ -37,17 +37,18 @@ class RuntimeViewSet(viewsets.GenericViewSet):
     def _validate_request(self, request):
         """
         """
-        session = request.data.get('session', None) 
-        valid_session = RequestSession.objects.filter(requestId=session)
+        session = request.data.get('session', None)
+        runtime = self._detect_runtime(request)
+        valid_session = RequestSession.objects.filter(requestId=session, runtime=runtime)
 
         if not session or not valid_session:
-            return {'halt':False, 'session':self._create_request_session('vrt')}
+            return {'halt':False, 'session':self._create_request_session('vrt', runtime)}
 
         request_trace = RequestTrace.objects.get(request=valid_session[0], state=valid_session[0].state)
 
         return {'halt':True, 'trace':request_trace}
               
-    def _create_request_session(self, type_,):
+    def _create_request_session(self, type_, runtime):
         """
         create initial session and trace for a request
         """
@@ -55,7 +56,8 @@ class RuntimeViewSet(viewsets.GenericViewSet):
         initial_session_data = {
             'state':'init',
             'requestId':session_id,
-            'request_type':type_
+            'request_type':type_,
+            'runtime': runtime
             }
 
         return RequestSession.objects.create(**initial_session_data)
@@ -87,6 +89,11 @@ class RuntimeViewSet(viewsets.GenericViewSet):
     def vrt_resolve(self, request, vrt_id, format=None):
         """
         """
+        vrt = self._detect_runtime(request)
+
+        if not vrt:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         vrt_request = self._validate_request(request)
         if vrt_request.get('halt') is True:
             return Response(vrt_request.get('trace').response, status=status.HTTP_202_ACCEPTED)
@@ -106,7 +113,7 @@ class RuntimeViewSet(viewsets.GenericViewSet):
         # call API g/w
         url = '{0}/{1}/'.format('terminal', vrt_id)
         api = '{0}{1}/{2}'.format('http://', request.get_host(), url)
-        response = requests.post(api, data=request.data, params=request.query_params, verify=True)
+        response = requests.get(api, data=request.data, params=request.query_params, verify=True)
 
         request_response = self._manage_response(session, session, payload, response)      
         return Response(request_response)
@@ -166,7 +173,7 @@ class RuntimeViewSet(viewsets.GenericViewSet):
         """
         """
         # create session (state = init)
-        session = self._create_request_session(type_)
+        session = self._create_request_session(type_, self._detect_runtime(request))
 
         # update payload with parent session id (from request which have initated excecution of widgets)
         parent_session = request.data.get('session', None)
@@ -215,3 +222,6 @@ class RuntimeViewSet(viewsets.GenericViewSet):
             self._create_request_trace(session, parent_session, 'failed', payload, response=request_response)            
 
         return request_response
+
+    def _detect_runtime(self, request):
+        return Runtime.objects.filter(runtime_id=request.META['HTTP_X_VRT']).first()
