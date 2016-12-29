@@ -38,9 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
+    'multiselectfield',
+
     'rest_framework',
     'apps.process_gw',
     'apps.client',
+    'apps.resource',
 
     'apps.api_gw.libs.hunger',
     'apps.api_gw.widgets',

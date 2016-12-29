@@ -13,10 +13,14 @@ from rest_framework.decorators import permission_classes
 class HelloView(View):
     """
     """
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(HelloView, self).dispatch(*args, **kwargs)
+
     def post(self, request):
         # <view logic>
         return JsonResponse({'response':'Hellooooo'})
-
 
 class Hello_X_View(View):
     """
