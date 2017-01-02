@@ -38,17 +38,30 @@ class Resource(models.Model):
 
     def clean(self):
         """
+        we need to make host and request path clean so that both can have uniform structire in db
+        it will redcude our pain while validation and concatenation
         """
+        # clean request path
+        # - if request path startwith '/' then remove it 
+        # - if request path not ends with '/' then append '/' in the end
         if not self.request_path.endswith('/'):
             self.request_path = '{0}/'.format(self.request_path)
 
-        if not self.host.endswith('/') and not self.request_path.startswith('/'):
+        # clean host
+        #  - if host not ends with '/' the append '/' (remember request do not start with '/')
+        if not self.host.endswith('/'):
             self.host = '{0}/'.format(self.host)
 
     def save(self, *args, **kwargs):
         """
         """
-        self.resource_end_point = 'http://{0}.veris.in/{1}'.format(str(uuid.uuid4()), self.request_path)
+        sub_domain = str(uuid.uuid4())
+        if self.id:
+            temp = self.resource_end_point.split('://')
+            temp = temp[1].split('.veris')
+            sub_domain = temp[0]
+
+        self.resource_end_point = 'http://{0}.veris.in/{1}'.format(sub_domain, self.request_path)
         return super(Resource, self).save(*args, **kwargs)
 
 class ResourceAdmin(admin.ModelAdmin):

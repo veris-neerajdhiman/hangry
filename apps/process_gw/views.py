@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 
 
 from apps.process_gw.models import RequestSession, RequestTrace
+from apps.process_gw import interface
+from apps.api_gw.widgets.models import Widgets
 
 import requests, uuid
 
@@ -136,6 +138,15 @@ class RuntimeViewSet(viewsets.GenericViewSet):
     def process_resolve(self, request, vrt_id, widget_id, process_id, format=None):
         """
         """
+        # TODO : we need to find out a better way to call rtesource endpoints
+        # get widget Resource and hit its API
+        widget = Widgets.objects.get(pk=widget_id)
+        endpoint = widget.resource.resource_end_point.replace("{key}", process_id)
+        req = interface.validate_endpoint(request, widget.resource, endpoint)
+
+        if req.get('error') is True:
+            return Response(req)
+
         payload = self._merge_request_payload(request)
 
         # if request
@@ -155,7 +166,7 @@ class RuntimeViewSet(viewsets.GenericViewSet):
             session = valid_process_request[0].request
             parent_session = valid_process_request[0].parent_request
 
-        url = '{0}/{1}/'.format('service', process_id)
+        url = req.get('api')
         api = '{0}{1}/{2}'.format('http://', request.get_host(), url)
         response = requests.post(api, data=request.data, params=request.query_params, verify=True)
 
