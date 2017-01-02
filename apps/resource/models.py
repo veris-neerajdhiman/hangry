@@ -23,6 +23,9 @@ class Resource(models.Model):
     request_path = models.CharField(_('request path of API'), max_length=50)
     resource_end_point = models.URLField(_('End Point used by Process'), max_length=255, editable=False, unique=True)
     actions = MultiSelectField(_('Resource allowed Methods'), default=1, choices=ACTIONS)
+    headers = JSONField(_('Keys for request Headers'), help_text='sperated via comma , ', blank=True, null=True)
+    body = JSONField(_('Keys for request Query params'), help_text='sperated via comma , ', blank=True, null=True)
+    data = JSONField(_('Keys for request post data'), help_text='sperated via comma , ', blank=True, null=True)
     added_at = models.DateTimeField(_('added at'), auto_now_add=True)
 
     class Meta:
