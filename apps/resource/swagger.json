@@ -1,0 +1,591 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Veris Organizations API",
+        "version": "1.0.0"
+    },
+    "host": "dev.veris.in",
+    "basepath": "/",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/api/v1/org-members/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "schemes": [
+                    "https"
+                ],
+                "operationId": "members_list",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "page",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "ordering",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "search",
+                        "type": "string",
+                        "in": "query"
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "members_create",
+                "parameters": [
+                    {
+                        "schema": {
+                            "properties": {
+                                "member": {
+                                    "description": "",
+                                    "type": "string"
+                                },
+                                "organization": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "organization",
+                                "member"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            }
+        },
+        "/api/v1/members/{id}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "operationId": "members_read",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "members_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "member": {
+                                    "description": "",
+                                    "type": "string"
+                                },
+                                "organization": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "organization",
+                                "member"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "members_partial_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "member": {
+                                    "description": "",
+                                    "type": "string"
+                                },
+                                "organization": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "members"
+                ],
+                "operationId": "members_delete",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            }
+        },
+        "/api/v1/organizations/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "operationId": "organizations_list",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "page",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "ordering",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "search",
+                        "type": "string",
+                        "in": "query"
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "organizations_create",
+                "parameters": [
+                    {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "name"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            }
+        },
+        "/api/v1/organizations/{id}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "operationId": "organizations_read",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "organizations_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "name"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "organizations_partial_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "description": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "organizations"
+                ],
+                "operationId": "organizations_delete",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "id",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "operationId": "users_list",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "page",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "ordering",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "description": "",
+                        "required": false,
+                        "name": "search",
+                        "type": "string",
+                        "in": "query"
+                    }
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "users_create",
+                "parameters": [
+                    {
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "username"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/{username}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "operationId": "users_read",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "username",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "users_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "username",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "username"
+                            ],
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "patch": {
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "users_partial_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "username",
+                        "type": "string",
+                        "in": "path"
+                    },
+                    {
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "name": "data",
+                        "in": "body"
+                    }
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "operationId": "users_delete",
+                "parameters": [
+                    {
+                        "description": "",
+                        "required": true,
+                        "name": "username",
+                        "type": "string",
+                        "in": "path"
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "basic": {
+            "type": "basic"
+        }
+    }
+}
