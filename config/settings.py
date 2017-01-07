@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'apps.api_gw.widgets',
     'apps.api_gw.terminals',
 
+    'apps.flow_extended',
+
+
 ]
 
 MIDDLEWARE = [
