@@ -66,7 +66,7 @@ class BaseApp(viewsets.GenericViewSet):
     def validate(self):
         pass
 
-    def ext_request(self):
+    def ext_request(self, url, method):
         """ 
         request other service/app
         """

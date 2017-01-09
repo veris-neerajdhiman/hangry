@@ -23,7 +23,7 @@ class ProcessViewSet(BaseApp):
     """
     __app__ = 'process'
     serializer_class = utils.NoneSerializer
-
+    __runtime__ = 'terminal'
 
     def __init__(self, *args, **kwargs):
         """
@@ -31,21 +31,20 @@ class ProcessViewSet(BaseApp):
         super(ProcessViewSet, self).__init__()
         self.__s = Session()
     
-    def resolve(self, request, vrt_type, widget_id, process_id):
+    def resolve(self, request, vrt_id, widget_id, process_id):
         """
         """
-        self.__runtime__ = vrt_type
         super(ProcessViewSet, self).resolve(request)
 
-        resp = self.ext_request()
+        url = 'http://localhost:8000/service/hello/'.format(self.__runtime__)
+
+        resp = self.ext_request(url, 'POST')
         return Response(self.response(resp))
 
-    def ext_request(self):
+    def ext_request(self, url, method):
         """
         """
-        url = 'http://localhost:8000/service/hello/'.format(self.__runtime__)
-        return utils.service_rq(self.__s, 'POST', headers={}, param={}, data={}, url=url)
-      
+        return utils.service_rq(self.__s, method, headers={}, param={}, data={}, url=url)
 
     def response(self, resp):
         """

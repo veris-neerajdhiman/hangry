@@ -23,27 +23,28 @@ class WidgetViewSet(BaseApp):
     """
     __app__ = 'widget'
     serializer_class = utils.NoneSerializer
+    __runtime__ = 'terminal'
 
     def __init__(self, *args, **kwargs):
         """
         """
         super(WidgetViewSet, self).__init__()
         self.__s = Session()
-    
-    def resolve(self, request, vrt_type, widget_id):
+
+    def resolve(self, request, vrt_id, widget_id):
         """
         """
-        self.__runtime__ = vrt_type
         super(WidgetViewSet, self).resolve(request)
 
-        resp = self.ext_request()
+        url = 'http://localhost:8000/vrt/{0}/widget/2/process/hello/'.format(self.__runtime__)
+
+        resp = self.ext_request(url, 'POST')
         return Response(self.response(resp))
 
-    def ext_request(self):
+    def ext_request(self, url, method):
         """
         """
-        url = 'http://localhost:8000/vrt/{0}/widget/2/process/hello/'.format(self.__runtime__)
-        return utils.service_rq(self.__s, 'POST', headers={}, param={}, data={}, url=url)
+        return utils.service_rq(self.__s, method, headers={}, param={}, data={}, url=url)
         
     def response(self, resp):
         """

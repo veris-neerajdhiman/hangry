@@ -4,7 +4,7 @@
 from rest_framework import serializers
 
 from requests import Request, Session
-import six
+import six, json
 
 
 class NoneSerializer(serializers.Serializer):
@@ -30,7 +30,7 @@ def service_rq(__s, method, headers, param, data, url):
     resp.update({
         'status':rs.status_code,
         'header':rs.headers,
-        'raw':six.BytesIO(rs.content).getvalue()
+        'raw':rs.json()
     })
 
     return resp

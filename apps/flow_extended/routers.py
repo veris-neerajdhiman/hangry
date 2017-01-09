@@ -14,6 +14,7 @@ from apps.flow_extended import vrt, widgets, process
 
 
 vrt_resolve = vrt.RuntimeViewSet.as_view({
+    'get' : 'get',
     'post': 'resolve',
 })
 
@@ -27,15 +28,19 @@ process_resolve = process.ProcessViewSet.as_view({
 
 
 urlpatterns = [
-        url(r'^vrt/(?P<vrt_type>\w+)/$', 
+        url(r'^vrt/(?P<vrt_id>\w+)/$', 
             vrt_resolve, 
             name='vrt-resolve'),   
 
-        url(r'^vrt/(?P<vrt_type>\w+)/widget/(?P<widget_id>[0-9]+)/$', 
+        url(r'^vrt/(?P<vrt_id>\w+)/widget/$', 
+            vrt_resolve, 
+            name='vrt-resolve'),   
+
+        url(r'^vrt/(?P<vrt_id>\w+)/widget/(?P<widget_id>[0-9]+)/$', 
             widget_resolve, 
             name='widget-resolve'),
 
-        url(r'^vrt/(?P<vrt_type>\w+)/widget/(?P<widget_id>[0-9]+)/process/(?P<process_id>\w+)/$', 
+        url(r'^vrt/(?P<vrt_id>\w+)/widget/(?P<widget_id>[0-9]+)/process/(?P<process_id>\w+)/$', 
             process_resolve, 
             name='process-resolve'),
 
